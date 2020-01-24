@@ -113,12 +113,13 @@ resources:
       Type: AWS::ApiGateway::GatewayResponse
       Properties:
         ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: '*'
-          gatewayresponse.header.Access-Control-Allow-Headers: '*'
-          gatewayresponse.header.Access-Control-Allow-Methods: '*'
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type, X-Amz-Date,Authorization'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "'GET,OPTIONS,POST'"
+
         ResponseType: DEFAULT_4XX
-        RestApiId:
-          Ref: ApiGatewayRestApi
+        RestApiId: 
+          Ref: 'ApiGatewayRestApi'
 
     # DynamoDB
     TodoTable:

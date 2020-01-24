@@ -59,12 +59,12 @@ async function verifyToken(authHeader: string): Promise<JwtPayload> {
   try {
     const jwks = await Axios.get(jwksUrl);
     const signingKey = jwks.data.keys.filter(k => k.kid === jwtKid)[0];
-  
+
     if (!signingKey) {
       throw new Error(`Unable to find a signing key that matches '${jwtKid}'`);
     }
     const { x5c } = signingKey;
-  
+
     cert = `-----BEGIN CERTIFICATE-----\n${x5c[0]}\n-----END CERTIFICATE-----`;
   } catch (error) {
     console.log('Error While getting Certificate : ', error);
