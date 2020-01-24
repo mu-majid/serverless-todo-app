@@ -9,13 +9,13 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs12.x
 
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
 
   environment:
-    TODOS_TABLE: serverless-todos-table-prod-${self:provider.stage}
+    TODOS_TABLE: serverless-todo-table-${self:provider.stage}
     INDEX_NAME: UserIdIndex
     S3_BUCKET: serverless-attachments-623982asfsa66asf-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
