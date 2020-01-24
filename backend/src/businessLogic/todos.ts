@@ -27,7 +27,7 @@ export async function createTodo(event: APIGatewayProxyEvent,
     ...createTodoRequest
   };
 
-  await todoAccessLayer.addTodoToDB(todoItem);
+  await todoAccessLayer.addTodo(todoItem);
 
   return todoItem;
 }
@@ -36,13 +36,13 @@ export async function getTodo(event: APIGatewayProxyEvent) {
   const todoId = event.pathParameters.todoId;
   const userId = getUserId(event);
 
-  return await todoAccessLayer.getTodoFromDB(todoId, userId);
+  return await todoAccessLayer.getTodo(todoId, userId);
 }
 
 export async function getTodos(event: APIGatewayProxyEvent) {
   const userId = getUserId(event);
 
-  return await todoAccessLayer.getAllTodosFromDB(userId);
+  return await todoAccessLayer.getAllTodos(userId);
 }
 
 export async function updateTodo(event: APIGatewayProxyEvent,
@@ -50,11 +50,11 @@ export async function updateTodo(event: APIGatewayProxyEvent,
   const todoId = event.pathParameters.todoId;
   const userId = getUserId(event);
 
-  if (!(await todoAccessLayer.getTodoFromDB(todoId, userId))) {
+  if (!(await todoAccessLayer.getTodo(todoId, userId))) {
     return false;
   }
 
-  await todoAccessLayer.updateTodoInDB(todoId, userId, updateTodoRequest);
+  await todoAccessLayer.updateTodo(todoId, userId, updateTodoRequest);
 
   return true;
 }
@@ -63,11 +63,11 @@ export async function deleteTodo(event: APIGatewayProxyEvent) {
   const todoId = event.pathParameters.todoId;
   const userId = getUserId(event);
 
-  if (!(await todoAccessLayer.getTodoFromDB(todoId, userId))) {
+  if (!(await todoAccessLayer.getTodo(todoId, userId))) {
     return false;
   }
 
-  await todoAccessLayer.deleteTodoFromDB(todoId, userId);
+  await todoAccessLayer.deleteTodo(todoId, userId);
 
   return true;
 }

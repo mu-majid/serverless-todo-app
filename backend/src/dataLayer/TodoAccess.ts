@@ -11,14 +11,14 @@ export default class TodoDBAccessLayer {
     private readonly indexName = process.env.INDEX_NAME
   ) { }
 
-  async addTodoToDB(todoItem) {
+  async addTodo(todoItem) {
     await this.docClient.put({
       TableName: this.todosTable,
       Item: todoItem
     }).promise();
   }
 
-  async deleteTodoFromDB(todoId, userId) {
+  async deleteTodo(todoId, userId) {
     await this.docClient.delete({
       TableName: this.todosTable,
       Key: {
@@ -28,7 +28,7 @@ export default class TodoDBAccessLayer {
     }).promise();
   }
 
-  async getTodoFromDB(todoId, userId) {
+  async getTodo(todoId, userId) {
     const result = await this.docClient.get({
       TableName: this.todosTable,
       Key: {
@@ -40,7 +40,7 @@ export default class TodoDBAccessLayer {
     return result.Item;
   }
 
-  async getAllTodosFromDB(userId) {
+  async getAllTodos(userId) {
     const result = await this.docClient.query({
       TableName: this.todosTable,
       IndexName: this.indexName,
@@ -53,7 +53,7 @@ export default class TodoDBAccessLayer {
     return result.Items;
   }
 
-  async updateTodoInDB(todoId, userId, updatedTodo) {
+  async updateTodo(todoId, userId, updatedTodo) {
     await this.docClient.update({
       TableName: this.todosTable,
       Key: {
