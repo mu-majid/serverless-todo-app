@@ -17,7 +17,7 @@ provider:
   environment:
     TODOS_TABLE: serverless-todos-table-prod-${self:provider.stage}
     INDEX_NAME: UserIdIndex
-    S3_BUCKET: serverless-attachments-${self:provider.stage}
+    S3_BUCKET: serverless-attachments-623982asfsa66asf-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
 
 custom:
