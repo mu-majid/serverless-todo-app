@@ -32,19 +32,6 @@ export async function createTodo(event: APIGatewayProxyEvent,
   return todoItem;
 }
 
-export async function deleteTodo(event: APIGatewayProxyEvent) {
-  const todoId = event.pathParameters.todoId;
-  const userId = getUserId(event);
-
-  if (!(await todoAccessLayer.getTodoFromDB(todoId, userId))) {
-    return false;
-  }
-
-  await todoAccessLayer.deleteTodoFromDB(todoId, userId);
-
-  return true;
-}
-
 export async function getTodo(event: APIGatewayProxyEvent) {
   const todoId = event.pathParameters.todoId;
   const userId = getUserId(event);
@@ -68,6 +55,19 @@ export async function updateTodo(event: APIGatewayProxyEvent,
   }
 
   await todoAccessLayer.updateTodoInDB(todoId, userId, updateTodoRequest);
+
+  return true;
+}
+
+export async function deleteTodo(event: APIGatewayProxyEvent) {
+  const todoId = event.pathParameters.todoId;
+  const userId = getUserId(event);
+
+  if (!(await todoAccessLayer.getTodoFromDB(todoId, userId))) {
+    return false;
+  }
+
+  await todoAccessLayer.deleteTodoFromDB(todoId, userId);
 
   return true;
 }

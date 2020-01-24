@@ -17,7 +17,7 @@ provider:
   environment:
     TODOS_TABLE: serverless-todo-table-${self:provider.stage}
     INDEX_NAME: UserIdIndex
-    S3_BUCKET: serverless-attachments-623982asfsa66asf-${self:provider.stage}
+    S3_BUCKET: serverless-todo-attachments-623982asfsa66asf-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
 
 custom:
@@ -108,7 +108,6 @@ functions:
 
 resources:
   Resources:
-    # API Gateway
     GatewayResponseDefault4XX:
       Type: AWS::ApiGateway::GatewayResponse
       Properties:
@@ -121,7 +120,6 @@ resources:
         RestApiId: 
           Ref: 'ApiGatewayRestApi'
 
-    # DynamoDB
     TodoTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -149,7 +147,6 @@ resources:
             Projection:
               ProjectionType: ALL
 
-    # S3 Bucket
     AttachmentBucket:
       Type: AWS::S3::Bucket
       Properties:
@@ -169,7 +166,6 @@ resources:
                 - HEAD
               MaxAge: 3000
 
-    # S3 Bucket Policy
     BucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
