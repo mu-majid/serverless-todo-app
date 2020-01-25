@@ -17,7 +17,7 @@ provider:
   environment:
     TODOS_TABLE: serverless-todo-table-${self:provider.stage}
     INDEX_NAME: UserIdIndex
-    S3_BUCKET: serverless-todo-attachments-623982asfsa66asf-${self:provider.stage}
+    S3_BUCKET: serverless-todo-attachments-623982asfsa66sf-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
 
 custom:
@@ -45,7 +45,13 @@ functions:
       - Effect: Allow
         Action:
           - dynamodb:Query
+          - dynamodb:Scan
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+          - dynamodb:Scan
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.INDEX_NAME}
 
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
