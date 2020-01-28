@@ -4,6 +4,7 @@ service:
 plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
+  - serverless-reqvalidator-plugin
   - serverless-dynamodb-local
   - serverless-offline
 
@@ -27,6 +28,18 @@ custom:
       inMemory: true
     stages:
       - dev
+  
+  documentation:
+    api:
+      info:
+        version: v1.0.0
+        title: Todo API
+        description: Serverless App For Todo Sharing
+    models:
+      - name: TodoRequest
+        contentType: application/json
+        schema: ${file(models/create-todo-request.json)}
+
 
 functions:
 
@@ -61,6 +74,13 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new group
+            description: create a new group
+            requestModels:
+              'application/json': TodoRequest
+
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -125,6 +145,15 @@ resources:
         ResponseType: DEFAULT_4XX
         RestApiId: 
           Ref: 'ApiGatewayRestApi'
+
+    RequestBodyValidator:
+      Type: AWS::ApiGateway::RequestValidator
+      Properties:
+        Name: 'request-body-validator'
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false
 
     TodoTable:
       Type: AWS::DynamoDB::Table
