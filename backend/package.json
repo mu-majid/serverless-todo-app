@@ -26,9 +26,9 @@
     "serverless-plugin-canary-deployments": "^0.4.7",
     "serverless-reqvalidator-plugin": "^1.0.3",
     "serverless-webpack": "^5.3.1",
-    "ts-loader": "^5.3.3",
+    "ts-loader": "^9.4.2",
     "typescript": "^3.4.1",
-    "webpack": "^4.29.6"
+    "webpack": "^5.75.0"
   },
   "author": "Ivan Mushketyk",
   "license": "MIT"
